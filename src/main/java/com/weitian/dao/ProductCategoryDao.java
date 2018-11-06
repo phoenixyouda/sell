@@ -9,5 +9,5 @@ import java.util.List;
  * Created by Administrator on 2018-11-06.
  */
 public interface ProductCategoryDao extends JpaRepository<ProductCategory,Integer> {
-    List<ProductCategory> findByCategoryType(List<Integer> categoryType);
+    List<ProductCategory> findByCategoryTypeIn(List<Integer> categoryType);
 }
