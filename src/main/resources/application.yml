@@ -11,3 +11,10 @@ server:
     context-path: /sell
   port: 8080
 
+wechat:
+  appId: wx46e410ef8d421013
+  appSecret: cbf90ea5b6313f6987e12a37a32df4eb
+  projectName: sell/
+  turnName: /wechat/userInfo
+  domainName: http://3aucw8.natappfree.cc
+
