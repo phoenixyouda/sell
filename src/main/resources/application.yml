@@ -6,10 +6,13 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
   jpa:
     show-sql: true
+  freemarker:
+    request-context-attribute: request
 server:
   servlet:
     context-path: /sell
   port: 8080
+
 
 wechat:
   appId: wx46e410ef8d421013

@@ -8,5 +8,5 @@ import java.util.List;
 /**
  * Created by Administrator on 2018-11-08.
  */
-public interface BuyerOrderDetailDao extends JpaRepository<OrderDetail,String>{
+public interface OrderDetailDao extends JpaRepository<OrderDetail,String>{
 }

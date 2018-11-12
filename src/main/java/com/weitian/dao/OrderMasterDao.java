@@ -9,6 +9,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 /**
  * Created by Administrator on 2018-11-08.
  */
-public interface BuyerOrderMasterDao extends JpaRepository<OrderMaster,String>{
+public interface OrderMasterDao extends JpaRepository<OrderMaster,String>{
     Page<OrderMaster> findByBuyerOpenId(String openId, Pageable pageable);
 }

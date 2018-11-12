@@ -5,12 +5,11 @@ import com.weitian.dto.OrderDTO;
 import com.weitian.enums.ResultEnum;
 import com.weitian.exception.SellException;
 import com.weitian.form.OrderForm;
-import com.weitian.service.BuyerOrderService;
+import com.weitian.service.OrderService;
 import com.weitian.utils.ResultVOUtil;
 import com.weitian.vo.ResultVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.jaxb.SpringDataJaxb;
 import org.springframework.util.CollectionUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,7 +29,7 @@ import java.util.Map;
 public class BuyerOrderController {
 
     @Autowired
-    private BuyerOrderService buyerOrderService;
+    private OrderService orderService;
 
     @PostMapping("/create")
     public ResultVO<Map<String,String>> create(@Valid OrderForm orderForm, BindingResult bindingResult){
@@ -47,7 +46,7 @@ public class BuyerOrderController {
         }
 
 
-        orderDTO=buyerOrderService.create( orderDTO );
+        orderDTO= orderService.create( orderDTO );
         Map<String, String> map = new HashMap<String, String>();
         map.put("openid",orderDTO.getOrderId());
         return ResultVOUtil.success( map );
