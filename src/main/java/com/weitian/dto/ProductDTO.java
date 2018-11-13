@@ -1,22 +1,17 @@
-package com.weitian.entity;
+package com.weitian.dto;
 
+import com.weitian.enums.ProductStatusEnum;
+import com.weitian.utils.EnumUtil;
 import lombok.Data;
-import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
 import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * Created by Administrator on 2018-11-06.
+ * Created by Administrator on 2018-11-13.
  */
-
-@Entity
 @Data
-@DynamicUpdate
-public class ProductInfo {
-    @Id
+public class ProductDTO {
     private String productId;
     private String productName;
     private BigDecimal productPrice;
@@ -28,5 +23,7 @@ public class ProductInfo {
     private Date createTime;
     private Date updateTime;
 
-
+    public ProductStatusEnum getProductStatusEnum(){
+        return EnumUtil.getByCode( this.productStatus,ProductStatusEnum.class );
+    }
 }

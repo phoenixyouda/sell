@@ -10,7 +10,7 @@ import lombok.Setter;
  */
 @AllArgsConstructor
 @Getter
-public enum ProductInfoStatus {
+public enum ProductStatusEnum implements CodeEnum{
     UP(1,"上架"), DOWN(2,"下架");
     private Integer code;
     private String message;

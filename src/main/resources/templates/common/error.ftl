@@ -8,7 +8,7 @@
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                 <h4>
                     失败!
-                </h4> <strong>${message!""}!</strong>  <a href="${url}" class="alert-link">3秒后跳转</a>
+                </h4> <strong>${message!""}!</strong>  <a href="${url!""}" class="alert-link">3秒后跳转</a>
             </div>
         </div>
     </div>
