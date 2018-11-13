@@ -1,6 +1,6 @@
 package com.weitian.controller;
 
-import com.weitian.convert.OrderForm2OrderDTOConvertor;
+import com.weitian.convert.OrderForm2OrderDTOConverter;
 import com.weitian.dto.OrderDTO;
 import com.weitian.enums.ResultEnum;
 import com.weitian.exception.SellException;
@@ -38,7 +38,7 @@ public class BuyerOrderController {
             new SellException( ResultEnum.PARAM_ERROR.getCode(),bindingResult.getFieldError().getDefaultMessage());
         }
 
-        OrderDTO orderDTO=OrderForm2OrderDTOConvertor.convert( orderForm );
+        OrderDTO orderDTO= OrderForm2OrderDTOConverter.convert( orderForm );
 
         if(CollectionUtils.isEmpty( orderDTO.getOrderDetailList() )){
             log.error( "【创建订单失败】,购物车不得为空,openId:{}",orderDTO.getBuyerOpenId() );

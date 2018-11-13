@@ -6,8 +6,10 @@ import com.weitian.utils.ResultVOUtil;
 import com.weitian.vo.ResultVO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.jaxb.SpringDataJaxb;
 
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -19,7 +21,11 @@ public interface OrderService {
     public OrderDTO create(OrderDTO orderDTO);
     //查询订单
     public Page<OrderDTO> findAll(Pageable pageable);
-    //支付订单
-    //修改库存
+
+    OrderDTO findByOrderId(String orderId);
+    //完结订单
+    OrderDTO finish(String orderId);
+
     //取消订单
+    OrderDTO cancel(String OrderId);
 }

@@ -1,6 +1,7 @@
 package com.weitian.service.impl;
 
-import com.weitian.convert.OrderMaster2OrderDTOConvert;
+import com.weitian.convert.OrderDetail2CatDTOConverter;
+import com.weitian.convert.OrderMaster2OrderDTOConverter;
 import com.weitian.dao.OrderDetailDao;
 import com.weitian.dao.OrderMasterDao;
 import com.weitian.dto.CartDTO;
@@ -24,9 +25,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import javax.xml.transform.Result;
-
-
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
@@ -46,6 +44,70 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private ProductInfoService productInfoService;
 
+    /**
+     * 完结订单
+     * @param orderId
+     * @return
+     */
+    @Override
+    public OrderDTO finish(String orderId) {
+        //查询订单
+        OrderMaster orderMaster=orderMasterDao.findById( orderId ).orElse( null );
+        if(null==orderMaster){
+            log.info( "【订单查询】,订单不存在，orderId={}",orderId );
+            throw new SellException( ResultEnum.ORDER_NOT_EXIST );
+        }
+        orderMaster.setOrderStatus( OrderStatusEnum.FINISH.getCode() );
+        orderMasterDao.save( orderMaster );
+        return OrderMaster2OrderDTOConverter.convert( orderMaster );
+    }
+
+    /**
+     * 取消订单
+     * @param orderId
+     * @return
+     */
+
+    @Override
+    public OrderDTO cancel(String orderId) {
+        //查询订单
+        OrderMaster orderMaster=orderMasterDao.findById( orderId ).orElse( null );
+        if(null==orderMaster){
+            log.info( "【订单查询】,订单不存在，orderId={}",orderId );
+            throw new SellException( ResultEnum.ORDER_NOT_EXIST );
+        }
+        orderMaster.setOrderStatus( OrderStatusEnum.CANCEL.getCode() );
+        List<OrderDetail> orderDetailList=orderDetailDao.findByOrderIdEquals( orderId );
+        if(orderDetailList.size()==0){
+            log.info( "【订单详情不存在】,orderId={}",orderId );
+            throw new SellException( ResultEnum.ORDERDETAIL_NOT_EXIST);
+        }
+        //返回商品库存
+        productInfoService.increaseStock( OrderDetail2CatDTOConverter.convert( orderDetailList ) );
+        //修改订单状态为已取消
+        orderMasterDao.save( orderMaster );
+        return OrderMaster2OrderDTOConverter.convert( orderMaster );
+    }
+
+    //查询订单详情
+    @Override
+    public OrderDTO findByOrderId(String orderId) {
+        OrderMaster orderMaster=orderMasterDao.findById( orderId ).orElse( null );
+        if(null==orderMaster){
+            log.info( "【订单不存在】,orderId={}",orderId );
+            throw new SellException( ResultEnum.ORDER_NOT_EXIST );
+        }
+        OrderDTO orderDTO= OrderMaster2OrderDTOConverter.convert( orderMaster );
+
+        List<OrderDetail> orderDetailList=orderDetailDao.findByOrderIdEquals( orderId );
+        if(orderDetailList.size()==0){
+            log.info( "【订单详情不存在】,orderId={}",orderId );
+            throw new SellException( ResultEnum.ORDERDETAIL_NOT_EXIST);
+        }
+        orderDTO.setOrderDetailList( orderDetailList );
+        return orderDTO;
+    }
+
     //查询所有订单
     @Override
     public Page<OrderDTO> findAll(Pageable pageable) {
@@ -54,7 +116,7 @@ public class OrderServiceImpl implements OrderService {
             log.info( "【暂无订单】,{}",orderMasterList );
             throw new SellException( ResultEnum.ORDER_IS_EMPTY );
         }
-        List<OrderDTO> orderDTOList=OrderMaster2OrderDTOConvert.convert(orderMasterList.getContent());
+        List<OrderDTO> orderDTOList= OrderMaster2OrderDTOConverter.convert(orderMasterList.getContent());
         PageImpl<OrderDTO> page=new PageImpl<OrderDTO>(orderDTOList,pageable,orderMasterList.getTotalElements());
         return page;
     }

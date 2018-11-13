@@ -17,7 +17,7 @@ import java.util.List;
  * Created by Administrator on 2018-11-08.
  */
 @Slf4j
-public class OrderForm2OrderDTOConvertor {
+public class OrderForm2OrderDTOConverter {
     public static OrderDTO convert(OrderForm orderForm){
         OrderDTO orderDTO = new OrderDTO();
         orderDTO.setBuyerName( orderForm.getName() );
