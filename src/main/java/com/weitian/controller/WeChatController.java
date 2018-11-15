@@ -1,6 +1,6 @@
 package com.weitian.controller;
 
-import com.weitian.ProjectURLConfig;
+import com.weitian.Configure.ProjectURLConfig;
 import com.weitian.enums.ResultEnum;
 import com.weitian.exception.SellException;
 import lombok.extern.slf4j.Slf4j;

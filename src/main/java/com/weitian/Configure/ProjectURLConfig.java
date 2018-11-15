@@ -1,4 +1,4 @@
-package com.weitian;
+package com.weitian.Configure;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

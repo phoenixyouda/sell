@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -24,6 +25,16 @@ public class ProductController {
     @Autowired
     private ProductInfoService productService;
 
+
+    @GetMapping("/mytest")
+    @ResponseBody
+    public String mytest(String productId){
+        if(productId.equals( "1234" )){
+            productId="";
+        }
+        productService.up( productId );
+        return "1234567";
+    }
 
     /**
      * 商品上架

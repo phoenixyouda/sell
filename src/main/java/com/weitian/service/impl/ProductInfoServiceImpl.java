@@ -121,6 +121,7 @@ public class ProductInfoServiceImpl implements ProductInfoService {
 
     //订单取消,增加库存
     @Override
+    @Transactional
     public void increaseStock(List<CartDTO> cartDTOList) {
         if(CollectionUtils.isEmpty( cartDTOList )){
             log.error( "【购物车为空】,cartDTO:{}" ,cartDTOList);

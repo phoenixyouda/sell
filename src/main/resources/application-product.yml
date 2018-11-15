@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    url: jdbc:mysql://161.9.0.208/sell?characterEncoding=utf-8&useSSL=false
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  freemarker:
+    request-context-attribute: request
+server:
+  servlet:
+    context-path: /sell
+  port: 8080
+
+
+wechat:
+  appId: wx46e410ef8d421013
+  appSecret: cbf90ea5b6313f6987e12a37a32df4eb
+  projectName: sell/
+  turnName: /wechat/userInfo
+  domainName: http://3aucw8.natappfree.cc
+

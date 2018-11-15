@@ -19,4 +19,11 @@ public class ResultVOUtil {
         resultVO.setMsg( "成功" );
         return resultVO;
     }
+    public static ResultVO success(Integer code,String msg,Object object){
+        ResultVO resultVO=new ResultVO();
+        resultVO.setCode(code);
+        resultVO.setMsg( msg );
+        resultVO.setData( object );
+        return resultVO;
+    }
 }
